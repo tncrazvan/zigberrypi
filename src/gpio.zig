@@ -23,6 +23,7 @@ pub const Pin = enum(u8) {
 };
 
 /// Export the `pin` allowing it to be written to and read from.
+/// The `prefix` exists only for testing purposes.
 fn setExport(pin: u8, prefix: []const u8) !void {
     const cwd = fs.cwd();
     try cwd.makePath(try string("{s}/sys/class/gpio", .{prefix}));
@@ -37,6 +38,7 @@ fn setExport(pin: u8, prefix: []const u8) !void {
 }
 
 /// Set the `direction` of the `pin`.
+/// The `prefix` exists only for testing purposes.
 fn setDirection(pin: u8, direction: Direction, prefix: []const u8) !void {
     const cwd = fs.cwd();
     const dirName = try string("{s}/sys/class/gpio/gpio{}", .{ prefix, pin });
@@ -50,7 +52,9 @@ fn setDirection(pin: u8, direction: Direction, prefix: []const u8) !void {
     file.close();
 }
 
-/// Open a stream to a pin.
+/// Open a stream to a `pin`.
+/// The `prefix` exists only for testing purposes.
+/// TODO: test this.
 fn open(pin: Pin, direction: Direction, prefix: []const u8) !GPIO {
     const upin = @enumToInt(pin);
     try setExport(upin, prefix);
@@ -64,12 +68,12 @@ fn open(pin: Pin, direction: Direction, prefix: []const u8) !GPIO {
     return GPIO{ .file = file, .direction = direction, .pin = pin };
 }
 /// Open a stream to a pin in order to write to it.
-pub fn openWritable(pin: Pin, prefix: []const u8) !GPIO {
-    return open(pin, Direction.Outward, prefix);
+pub fn openWritable(pin: Pin) !GPIO {
+    return open(pin, Direction.Outward, "");
 }
 /// Open a stream to a pin in order to read from it.
-pub fn openRead(pin: Pin, prefix: []const u8) !GPIO {
-    return open(pin, Direction.Inward, prefix);
+pub fn openRead(pin: Pin) !GPIO {
+    return open(pin, Direction.Inward, "");
 }
 
 const GPIOWritingError = error{PinIsNotWritable} | fs.File.WriteError;
