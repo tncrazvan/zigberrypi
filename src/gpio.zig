@@ -72,6 +72,9 @@ pub fn openRead(pin: Pin, prefix: []const u8) !GPIO {
     return open(pin, Direction.Inward, prefix);
 }
 
+const GPIOWritingError = error{PinIsNotWritable} | fs.File.WriteError;
+const GPIOReadingError = error{PinIsNotReadable} | fs.File.ReadError;
+
 const GPIO = struct {
     file: fs.File,
     direction: Direction,
@@ -83,13 +86,13 @@ const GPIO = struct {
     /// Write data to the pin.
     pub fn write(self: GPIO, bytes: []const u8) !void {
         if (!self.isWritable()) {
-            return;
+            return GPIOWritingError;
         }
         _ = try self.file.write(bytes);
     }
     pub fn read(self: GPIO) ![]const u8 {
         if (self.isWritable()) {
-            return;
+            return GPIOReadingError;
         }
         const readerBuffer = []const u8{};
         _ = try self.file.read(readerBuffer);
