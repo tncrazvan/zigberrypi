@@ -2,5 +2,5 @@ id: lo3kd0nuxh0oxkkko3mdj87lkl4t29phgyrc4sdc6ql5qun4
 name: zigberrypi
 main: src/gpio.zig
 license: MIT
-description: Zig library for interacting with rasberrypi's gpio.
+description: Zig library for interacting with raspberrypi's gpio.
 dependencies:
