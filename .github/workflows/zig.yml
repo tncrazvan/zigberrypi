@@ -1,0 +1,31 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: download zig archive
+      run: wget https://github.com/ziglang/zig/releases/download/0.10.1/zig-bootstrap-0.10.1.tar.xz -O/usr/lib/zig.tar.xz
+    - name: untar zig archive
+      run: tar xvf /usr/lib/zig.tar.xz && rm /usr/lib/zig.tar.xz
+    - name: add zig to path
+      run: export PATH=$PATH:/usr/lib/zig
+    - name: check zig
+      run: zig version
+    - name: run tests
+      run: zig test src/gpio.zig
+      
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
+
+    # - name: Run test suite
+    #   run: composer run-script test

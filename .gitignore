@@ -1,4 +1,5 @@
+/.zigberrypi.testing.out
 /zig-cache
 /zig-out
-.zigmod
-deps.zig
+/.zigmod
+/deps.zig
