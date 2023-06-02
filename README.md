@@ -18,7 +18,7 @@ Zig library for interacting with raspberrypi's gpio
   // ...
   }
   ```
-- you should now be able to import `zigberrypi` in your project with
+- import `zigberrypi` in your project with
    ```zig
    const gpio = @import("zigberrypi");
    ```
