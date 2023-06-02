@@ -69,7 +69,7 @@ fn open(pin: Pin, direction: Direction, prefix: []const u8) !GPIO {
     return GPIO{ .file = file, .direction = direction, .pin = pin, .file_name = file_name };
 }
 
-test "writable pin" {
+test "writing to pin" {
     const path_prefix = "./.zigberrypi.testing.out";
     try std.fs.cwd().makePath(path_prefix);
     const full_prefix = try std.fs.cwd().realpathAlloc(std.heap.page_allocator, path_prefix);
@@ -82,7 +82,7 @@ test "writable pin" {
     try expect(std.mem.eql(u8, "test", contents));
 }
 
-test "readable pin" {
+test "reading from pin" {
     const path_prefix = "./.zigberrypi.testing.out";
     try std.fs.cwd().makePath(path_prefix);
     const full_prefix = try std.fs.cwd().realpathAlloc(std.heap.page_allocator, path_prefix);
