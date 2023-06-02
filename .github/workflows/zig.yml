@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Zig
 
 on:
   push:
@@ -24,8 +24,3 @@ jobs:
       run: zig version
     - name: run tests
       run: zig test src/gpio.zig
-      
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
