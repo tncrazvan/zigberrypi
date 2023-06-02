@@ -56,7 +56,7 @@ fn setDirection(pin: u8, direction: Direction, prefix: []const u8) !void {
 
 /// Open a stream to a `pin`.
 /// The `prefix` exists only for testing purposes.
-pub fn open(pin: Pin, direction: Direction, prefix: []const u8) !GPIO {
+fn open(pin: Pin, direction: Direction, prefix: []const u8) !GPIO {
     const upin = @enumToInt(pin);
     try setExport(upin, prefix);
     try setDirection(upin, direction, prefix);
@@ -67,11 +67,6 @@ pub fn open(pin: Pin, direction: Direction, prefix: []const u8) !GPIO {
     const file = try fs.openFileAbsolute(file_name, flags);
 
     return GPIO{ .file = file, .direction = direction, .pin = pin, .file_name = file_name };
-}
-
-/// Convert megabytes to bytes.
-fn megaBytesToBytes(bytes: u8) usize {
-    return bytes * 1024 * 1024;
 }
 
 test "writable pin" {
