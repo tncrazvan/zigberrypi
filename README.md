@@ -3,10 +3,9 @@ Zig library for interacting with raspberrypi's gpio
 
 ## How to install
 
-- add & fetch dependency
+- add dependency
   ```sh
-  zigmod aq add 1/tncrazvan/zigberrypi
-  zigmod fetch
+  zigmod aq install 1/tncrazvan/zigberrypi
   ```
 - add a reference for the dependency in `build.zig`
   ```zig
