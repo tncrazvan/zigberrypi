@@ -25,7 +25,7 @@ Zig library for interacting with raspberrypi's gpio
 
 ## Example
 
-Usage example 
+Blinking led example
 
 ```zig
 const std = @import("std");
